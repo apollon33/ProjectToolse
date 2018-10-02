@@ -1,0 +1,26 @@
+# prevent directory listings
+Options -Indexes
+# follow symbolic links
+Options FollowSymlinks
+RewriteEngine on
+
+# The next line should fix custom header issue presented in apache mod_cgi/mod_fcgi
+# when authorization headers do not passed to PHP backend that lead to broken REST API's.
+# NOTE: there still can be an issue on some cPanel servers, but I cannot trace the reason of such behaviour.
+#SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$0
+
+#RewriteCond %{HTTPS} off
+#RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,NE,R=301]
+
+RewriteCond %{REQUEST_URI} ^/admin/$
+RewriteRule ^(admin)/$ /$1 [R=301,L]
+RewriteCond %{REQUEST_URI} ^/admin
+RewriteRule ^admin(/.+)?$ /backend/web/$1 [L,PT]
+
+
+
+RewriteCond %{REQUEST_URI} ^/api/
+RewriteRule ^api(/.+)?$ /api/web/$1 [L,PT]
+
+RewriteCond %{REQUEST_URI} ^.*$
+RewriteRule ^(.*)$ /backend/web/$1
