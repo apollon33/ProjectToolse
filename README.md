@@ -1,17 +1,3 @@
-IT-Master's CMS written on Yii Framework 2
-===============================
-
-There are three applications: front end, back end, and console, each of which
-is a separate Yii application.
-
-Back end contains the next units:
-
-- Users
-- Roles
-
-> **NOTE:**
-> As of version 0.3 (2018-01-17) php minimun requirements updated to PHP 7.
-
 Installation
 ============
 
